@@ -3,17 +3,20 @@
 *, *::before, *::after { box-sizing: border-box }
 html { height: 100%; font-size: 100%; font: inherit; vertical-align: baseline;
 scroll-behavior: smooth; scroll-padding-top: 20px }
-body { line-height: 1.5; min-height: 100vh }
-img { width: 100%; height: auto; display: block }
-input, button, textarea, select { font: inherit }
+body { line-height: 1.5; min-height: 100vh; 
+margin-left: auto; margin-right: auto; min-height: 100vh }  
 @media (max-width: 767px ) { body { text-rendering: optimizeSpeed } }
 @media (min-width: 768px ) { body { text-rendering: optimizeLegibility } }
+nav, header, section, footer { width: 100% }
+nav *:last-child, header *:last-child, section *:last-child, footer *:last-child { margin-bottom: 0 }
+img { width: 100%; height: auto; display: block }
+input, button, textarea, select { font: inherit }
+h1, h2, h3, h4, p, li { word-break: break-word; hyphens: auto }
 
 /* ============ CUSTOM PROPERTIES ============  */
 
 :root {
-
-    /* Color variables */
+    /* ==== Color variables ==== */
     --black-000: #000000;
     --white-000: #ffffff;
     --trans-000: transparent;
@@ -227,18 +230,14 @@ input, button, textarea, select { font: inherit }
     --trend-800: #1f364d;
     --trend-900: #0e2439;
 
-    /* Alternatives to default sans-serif font-family */
+    /* ==== Nicer than browser default fonts ==== */
     --font-sans: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
-
-    /* Alternatives to default serif font-family */
     --font-serif: Cambria, "Hoefler Text", Utopia, "Liberation Serif", "Nimbus Roman No9 L Regular", Times, "Times New Roman", serif;
-
-    /* Alternatives to default monospace font font-family */
     --font-monospace: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-    --global-font: var(--font-sans);
     
-    /* Fluid font sizes */
+    --global-font: var(--font-sans);
+
+    /* ==== Fluid font sizes ==== */
     --fs-sm: clamp(0.8rem, 0.17vi + 0.76rem, 0.89rem);
     --fs-base: clamp(1rem, 0.34vi + 0.91rem, 1.19rem);
     --fs-md: clamp(1.25rem, 0.61vi + 1.1rem, 1.58rem);
@@ -249,81 +248,175 @@ input, button, textarea, select { font: inherit }
 
 }
 
-
-/* HEADER */
-header { 
-    display: flex; flex-direction: column; justify-content: space-around;
-    align-items: center; padding: 20px 0; background-color: var(--green-300);
-    margin-left:auto; margin-right:auto; width: 100%;
-}
-
-@media (min-width: 1025px) { header { padding: 3% 22% 5% 22% } }
-@media (min-width: 768px) and (max-width: 1024px) { header { padding: 5% 20% } }
-@media (max-width: 767px) { header { padding: 32px 9% 32px 9% } }
-
-header *:last-child { margin-bottom: 0 !important }
+/* Global font */
+body { font-family: var(--global-font); }
 
 
-/* SECTIONS */
-section { background-color: var(--green-200) }
+/* ============= CSS FOR HERO BLOCK ============= */
 
-/* Padding around content */
-@media (min-width: 1025px) { section { padding: 4% 24% } }
-@media (min-width: 768px) and (max-width: 1024px) { section { padding: 5% 20% } }
-@media (max-width: 767px) { section { padding: 32px 9% 32px 9% } }
-
-h1, h2, h2 { color: var(--green-700) }
-
-section *:last-child { margin-bottom: 0 !important }
-
-/* Main heading */
-h1 {
-	font-weight: bold;
-    font-size: var(--fs-xxl);
-    line-height: 1.1;    
-    margin-bottom: 30px;
+header {
+    /* Flexbox to centre child div vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Spacing around child div inside hero block */
+    padding: 0 20% 4% 20%;
+    /* Optionally, centre child div horizontally */
     text-align: center;
-    letter-spacing: -2px;
-    font-family: "Oswald", sans-serif;
+    /* Background colour */
+    background-color: gray;
+    background-image: linear-gradient(90deg,var(--orange-500),var(--blue-500));
+    position: relative;
 }
 
-header p { 
-    font-size: var(--fs-md);
-    color: var(--green-900) ;
-    text-align: center;
-    font-weight:bold;
-    font-family: "Lato", sans-serif;
+/* Set minimum height of hero block */
+@media (min-width: 768px) { 
+    header { min-height: 80vh } 
+}
+@media (max-width: 767px) { 
+    header { min-height: 500px } 
 }
 
-/* Small headings */
-h2 {
-    font-weight: bold;
-    font-size: var(--fs-xl);
-    line-height: 1.2;    
-    margin-top: 42px;
-    margin-bottom: 14px;
-    font-family: "Oswald", sans-serif;
+.hero-text-container h1, 
+.hero-text-container h2 {
+    line-height: 1.2;
+    color:#fff;
 }
 
-section h2:nth-child(1) { margin-top: 0 }
-
-/* Text paragraphs */
-p {
-    font-size: calc(var(--fs-base)* 1.1);
-    color: #000;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-family: "Lato", sans-serif;
-}
-
-img {
+.hero-text-container h1 {
+    /* Space under h1 and above h2 */
     margin-bottom: 24px;
-    border-radius: 25px;
+    /* Set main heading to extra large size */
+    font-size: calc(var(--fs-xxxl) * 1.5);
+    /* When text extra large, decrease spacing between characters  */
+    letter-spacing: -4px;
 }
 
-.highlight-text {
-    background-color: var(--green-700);
-    color: white;
-    padding: 3px 12px 6px 12px;
-    width: fit-content;
+.hero-text-container h2 {
+    /* Optionally, remove default weight of 'bold' from h2 */
+    font-weight: normal;
+    font-size: var(--fs-xl);
+    /* Optionally, change text in h2 to all capital letters */
+    text-transform: uppercase;
 }
+
+/* ----------------------------------------------
+ * Generated by Animista on 2025-10-20 9:58:38
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-top
+ * ----------------------------------------
+ */
+
+@-webkit-keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-top {
+	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+/* ----------------------------------------------
+ * Generated by Animista on 2025-10-20 10:1:2
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation rotate-in-hor
+ * ----------------------------------------
+ */
+@-webkit-keyframes rotate-in-hor {
+  0% {
+    -webkit-transform: rotateX(360deg);
+            transform: rotateX(360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+@keyframes rotate-in-hor {
+  0% {
+    -webkit-transform: rotateX(360deg);
+            transform: rotateX(360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+
+.rotate-in-hor {
+	-webkit-animation: rotate-in-hor 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: rotate-in-hor 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+
+.hero-text-container {
+    position: relative; 
+    z-index: 2;
+}    
+    
+.hero-bg-media {
+    position: absolute; 
+    top: 0; right: 0; bottom: 0; left: 0; 
+    z-index: 0;
+}
+                    
+.hero-bg-media * {
+    object-fit: cover; width: 100%; height: 100%;
+}
+
+.hero-text-container h1, .hero-text-container h2 {
+    line-height: 1.2;
+    color: #fff;
+    text-shadow: 2px 2px #222;
+}
+
+.bg-overlay {
+   position: absolute; 
+   top: 0; right: 0; bottom: 0; left: 0;  
+   z-index: 1;
+   background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.3));  
+}
+
+/* ======== END CSS FOR HERO BLOCK ======== */
+
+
